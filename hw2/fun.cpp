@@ -1,20 +1,22 @@
-# pragma once
+# ifndef FUN
+# define FUN
 
 #include<iostream>
 #include"classes.h"
 using namespace std;
 
-State* State::search(State & p){
+State* State::search(){
     // step1: push the original node
     int level = 0;
-    OPEN_TABLE.push_back(&p);
+    OPEN_TABLE.push_back(&(*this));
 
     // step 2-8
     // step2: check whether the open_table is empty
     while(!OPEN_TABLE.empty()){
+        level ++;
         // step3: pop the first node in open_table and push it into the closed_table, notated as n
-        State* node_tem = OPEN_TABLE.back();
-        OPEN_TABLE.pop_back();
+        State* node_tem = OPEN_TABLE[0];
+        OPEN_TABLE.erase(OPEN_TABLE.begin());
         CLOSED_TABLE.push_back(node_tem);
 
         // step4: judge whether n is the aim node
@@ -25,9 +27,10 @@ State* State::search(State & p){
         // step5 and step6: produce children nodes and initialize them
         node_tem->produce_children();
 
-
+        //step7 and step8 can be ignored
 
     }
+    return NULL;
 
 }
 
@@ -58,28 +61,36 @@ void State::produce_children(){
         tem->cells[x_whitespace][y_whitespace] = tem->cells[x_whitespace - 1][y_whitespace];
         tem->cells[x_whitespace - 1][y_whitespace] = 0;
         tem->x_whitespace--;
-        if(!is_in_table(OPEN_TABLE, tem))
+        if(!is_in_table(OPEN_TABLE, tem) && !is_in_table(CLOSED_TABLE, tem)){
+            OPEN_TABLE.push_back(tem);
+        }
     }
     if(y_whitespace > 0){
         State* tem = this->produce_single_child();
         tem->cells[x_whitespace][y_whitespace] = tem->cells[x_whitespace][y_whitespace - 1];
         tem->cells[x_whitespace][y_whitespace] = 0;
         tem->y_whitespace--;
-        OPEN_TABLE.push_back(tem);
+        if(!is_in_table(OPEN_TABLE, tem) && !is_in_table(CLOSED_TABLE, tem)){
+            OPEN_TABLE.push_back(tem);
+        }
     }
     if(x_whitespace < 2){
         State* tem = this->produce_single_child();
         tem->cells[x_whitespace][y_whitespace] = tem->cells[x_whitespace + 1][y_whitespace];
         tem->cells[x_whitespace + 1][y_whitespace] = 0;
         tem->x_whitespace++;
-        OPEN_TABLE.push_back(tem);
+        if(!is_in_table(OPEN_TABLE, tem) && !is_in_table(CLOSED_TABLE, tem)){
+            OPEN_TABLE.push_back(tem);
+        }
     }
     if(y_whitespace < 2){
         State* tem = this->produce_single_child();
         tem->cells[x_whitespace][y_whitespace] = tem->cells[x_whitespace][y_whitespace + 1];
         tem->cells[x_whitespace][y_whitespace + 1] = 0;
         tem->y_whitespace++;
-        OPEN_TABLE.push_back(tem);
+        if(!is_in_table(OPEN_TABLE, tem) && !is_in_table(CLOSED_TABLE, tem)){
+            OPEN_TABLE.push_back(tem);
+        }
     }
 }
 
@@ -110,5 +121,48 @@ bool State::is_in_table(vector<State*> table, State* p){
     return flag1;
 }
 
+void State::init(){
+    
+    x_whitespace = 1;
+    y_whitespace = 1;
+    parent = NULL;
 
 
+    cout<<"重排九宫格"<<endl<<"tips: 输入八个数字，从1至8各一个，可打乱顺序"<<endl;
+    cout<<" ? - - "<<endl<<" - - - "<<endl<<" - - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[0][0];
+    cout<<endl;
+    cout<<" - ? - "<<endl<<" - - - "<<endl<<" - - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[0][1];
+    cout<<endl;
+    cout<<" - - ? "<<endl<<" - - - "<<endl<<" - - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[0][2];
+    cout<<endl;
+    cout<<" - - - "<<endl<<" - - ? "<<endl<<" - - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[1][2];
+    cout<<endl;
+    cout<<" - - - "<<endl<<" - - - "<<endl<<" - - ? "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[2][2];
+    cout<<endl;
+    cout<<" - - - "<<endl<<" - - - "<<endl<<" - ? - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[2][1];
+    cout<<endl;
+    cout<<" - - - "<<endl<<" - - - "<<endl<<" ? - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[2][0];
+    cout<<endl;
+    cout<<" - - - "<<endl<<" ? - - "<<endl<<" - - - "<<endl;
+    cout<<"请输入此位置的数字:"<<endl;
+    cin>>cells[1][0];
+    cout<<endl;
+}
+
+
+
+#endif

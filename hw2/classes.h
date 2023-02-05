@@ -8,7 +8,7 @@ using namespace std;
 
 # define GRID_LENGTH 3
 
-
+class State;
 vector<State*> OPEN_TABLE;
 vector<State*> CLOSED_TABLE;
 
@@ -16,28 +16,26 @@ bool flag = false;
 
 
 class State{
-    int cells[GRID_LENGTH][GRID_LENGTH];
-    int depth;
-    int x_whitespace;
-    int y_whitespace;
-    State* parent;
-    
+    public:
+        int cells[GRID_LENGTH][GRID_LENGTH];
+        int depth;
+        int x_whitespace;
+        int y_whitespace;
+        State* parent;
+        
 
-    State(int d = 0, int x = 1, int y = 1, State* par = NULL){
-        depth = d; 
-        x_whitespace = x; 
-        y_whitespace = y; 
-        parent = par;
-    }
+        State(int level ){depth = level;}
 
 
-    State* search(State & p);
+        State* search();
 
-    bool is_aim();
+        bool is_aim();
 
-    void produce_children();
+        void produce_children();
 
-    State* produce_single_child();
+        State* produce_single_child();
 
-    bool is_in_table(vector<State*> table, State* p);
+        bool is_in_table(vector<State*> table, State* p);
+
+        void init();
 };
