@@ -1,11 +1,12 @@
-#include "classes.h"
+#include "state.h"
 
 using namespace std;
 
 vector<State*> OPEN_TABLE;
 vector<State*> CLOSED_TABLE;
 bool           flag = false;
-int count = 0;
+int            cnt  = 0;
+
 State* State::search() {
     // step1: push the original node
     int level = 0;
@@ -22,9 +23,8 @@ State* State::search() {
 
         // step4: judge whether n is the aim node
         if (node_tem->is_aim()) {
-            cout<<"----"<<count<<"----"<<endl;
+            cout << "----" << cnt << "----" << endl;
             return node_tem;
-            
         }
 
         // step5 and step6: produce children nodes and initialize them
@@ -32,7 +32,7 @@ State* State::search() {
 
         // step7 and step8 can be ignored
     }
-    cout<<"----"<<count<<"----"<<endl;
+    cout << "----" << cnt << "----" << endl;
     return NULL;
 }
 
@@ -68,8 +68,8 @@ void State::produce_children() {
         }
     }
     if (y_whitespace > 0) {
-        State* tem                             = this->produce_single_child();
-        tem->cells[x_whitespace][y_whitespace] = tem->cells[x_whitespace][y_whitespace - 1];
+        State* tem                                 = this->produce_single_child();
+        tem->cells[x_whitespace][y_whitespace]     = tem->cells[x_whitespace][y_whitespace - 1];
         tem->cells[x_whitespace][y_whitespace - 1] = 0;
         tem->y_whitespace--;
         if (!is_in_table(OPEN_TABLE, tem) && !is_in_table(CLOSED_TABLE, tem)) {
@@ -96,17 +96,18 @@ void State::produce_children() {
     }
 }
 
-State* State::produce_single_child() {count++;
+State* State::produce_single_child() {
+    cnt++;
     State* tem = new State(0);
-    for(int i = 0; i < GRID_LENGTH; i++){
-        for( int j = 0; j < GRID_LENGTH; j++){
+    for (int i = 0; i < GRID_LENGTH; i++) {
+        for (int j = 0; j < GRID_LENGTH; j++) {
             tem->cells[i][j] = cells[i][j];
         }
     }
     tem->x_whitespace = x_whitespace;
     tem->y_whitespace = y_whitespace;
-    tem->depth = depth + 1;
-    tem->parent = this;
+    tem->depth        = depth + 1;
+    tem->parent       = this;
     return tem;
 }
 
@@ -134,7 +135,7 @@ void State::init() {
     x_whitespace = 1;
     y_whitespace = 1;
     parent       = NULL;
- 
+
     cells[1][1] = 0;
 
     cout << "重排九宫格" << endl

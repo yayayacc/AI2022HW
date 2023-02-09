@@ -11,7 +11,7 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS)
 endif()
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 if(MSVC)
@@ -20,10 +20,9 @@ endif()
 
 message(STATUS $ENV{VCPKG_ROOT})
 
-# how to use the `option`
 project(Test_00 LANGUAGES CXX)
 
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/*.cpp src/*.h)
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS include/*.h)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${HEADER_FILES} ${SOURCE_FILES})

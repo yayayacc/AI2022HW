@@ -1,5 +1,0 @@
-# ninja log v5
-2	31	0	E:/GitProject/Practice/your_code/build/CMakeFiles/cmake.verify_globs	675eeaccb839b09
-38	788	6973105273235902	CMakeFiles/Test_00.dir/src/main.cpp.obj	4018e07534505326
-32	912	6973105274475807	CMakeFiles/Test_00.dir/src/fun.cpp.obj	d89538ca769f68ca
-912	1080	6973105275761719	Test_00.exe	9f1cc5962dd1d852

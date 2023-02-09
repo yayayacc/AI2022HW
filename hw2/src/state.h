@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 #define GRID_LENGTH 3
 
 class State {
@@ -25,7 +23,7 @@ public:
 
     State* produce_single_child();
 
-    bool is_in_table(vector<State*> table, State* p);
+    bool is_in_table(std::vector<State*> table, State* p);
 
     void init();
 };

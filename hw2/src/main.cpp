@@ -1,37 +1,18 @@
-// #include <test.h>
-// #include <test_output.h>
-
-// int main() {
-//     // test();
-//     //   test_stream();
-
-//     // createObjectJson();
-
-//     //   auto json = createObjectJson();
-//     //   std::cout << json << std::endl;
-// }
-
-#include "classes.h"
-#include <iostream>
-
-using namespace std;
-
-int x_whitespace = 0;
+#include "profiler.h"
+#include "state.h"
 
 int main() {
-    State p(0);
-    p.init();
+    {
+        PROFILE_SCOPE("Search");
 
-    State* res = p.search();
+        State p(0);
+        p.init();
 
-    if (res) {
-        cout << res->cells[0][0];
-    }
-    else{
-        cout<<11;
+        State* res = p.search();
+        std::cout << ((res) ? res->cells[0][0] : 11) << std::endl;
     }
 
-    // path_trace(res);
-    // system("pause");
+    PROFILE_DISPLAY();
+
     return 0;
 }
