@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/SORT.dir/src/main.cpp.o CMakeFiles/SORT.dir/src/state.cpp.o -o SORT 

@@ -15,15 +15,21 @@ public:
 
     State(int level) { depth = level; }
 
-    State* search();
+    State* search_width_first();
+    State* search_depth_first();
 
     bool is_aim();
 
     void produce_children();
+    void produce_children_depth_first();
 
     State* produce_single_child();
 
     bool is_in_table(std::vector<State*> table, State* p);
 
+    void test();
+    
+
     void init();
+    void randomly_init();
 };

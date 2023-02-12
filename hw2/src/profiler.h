@@ -33,6 +33,19 @@ public:
         m_profile_tasks.clear();
     }
 
+    void display_average(int times) {
+        printf("--------------Result--------------\n");
+        for (auto& ret : m_profile_tasks)
+            printf("name: %s, average cost time: %.3f s\n", ret.name.c_str(), double(ret.getLength() / 1000.0 / 1000.0 / times));
+        printf("--------------Result--------------\n");
+        m_profile_tasks.clear();
+    }
+
+    double time_cost(){
+        for (auto& ret : m_profile_tasks)
+            return double(ret.getLength() / 1000.0 / 1000.0);
+    }
+
 private:
     Profiler()  = default;
     ~Profiler() = default;
@@ -73,3 +86,5 @@ private:
 #define PROFILE_SCOPE(name) StepTimer timer##__LINE__(name)
 #define PROFILE_FUNCTION() PROFILE_SCOPE(__FUNCSIG__)
 #define PROFILE_DISPLAY() Profiler::getInstance().display()
+#define PROFILE_COST_TIME() Profiler::getInstance().time_cost()
+#define PROFILE_DISPLAY_AVERAGE(t) Profiler::getInstance().display_average(t)

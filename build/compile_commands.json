@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/cc/桌面/AI-2022-本科/HW/build",
+  "command": "/usr/bin/g++   -g -std=gnu++20 -o CMakeFiles/SORT.dir/src/main.cpp.o -c /home/cc/桌面/AI-2022-本科/HW/hw2/src/main.cpp",
+  "file": "/home/cc/桌面/AI-2022-本科/HW/hw2/src/main.cpp"
+},
+{
+  "directory": "/home/cc/桌面/AI-2022-本科/HW/build",
+  "command": "/usr/bin/g++   -g -std=gnu++20 -o CMakeFiles/SORT.dir/src/state.cpp.o -c /home/cc/桌面/AI-2022-本科/HW/hw2/src/state.cpp",
+  "file": "/home/cc/桌面/AI-2022-本科/HW/hw2/src/state.cpp"
+}
+]
